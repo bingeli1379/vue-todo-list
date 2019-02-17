@@ -10584,3 +10584,7 @@ html, body {
 .completed {
   text-decoration: line-through;
 }
+
+.opacity-all {
+  opacity: 1;
+}

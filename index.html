@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Vtodolist</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="./dist/css/all.min.css">
 </head>
 <body>
@@ -43,11 +44,16 @@
                     {{ item.content }}
                   </label>
                 </div>
-                <button type="button" class="close ml-auto" aria-label="Close" @click="romoveTodo(item)">
+                <button type="button" class="close ml-auto" @click="editTodo(item)"><i class="far fa-edit"></i></button>
+                <button type="button" class="close mx-3" aria-label="Close" @click="romoveTodo(item)">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <input type="text" class="form-control" v-if="item.id === edit.id" v-model="editContent" @keyup.esc="cancelEdit" @keyup.enter="doneEdit(item)">
+              <div class="d-flex">
+                <input type="text" class="form-control" v-if="item.id === edit.id" v-model="editContent" @keyup.esc="cancelEdit" @keyup.enter="doneEdit(item)">
+                <button type="button" class="close ml-3 text-success opacity-all" v-if="item.id === edit.id" @click="doneEdit(item)"><i class="far fa-check-square"></i></button>
+                <button type="button" class="close mx-3 text-danger opacity-all" v-if="item.id === edit.id" @click="cancelEdit"><i class="fas fa-undo"></i></button>
+              </div>
             </li>
           </ul>
           <div class="card-footer d-flex justify-content-between">
