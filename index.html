@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vtodolist</title>
+  <link rel="stylesheet" href="./dist/css/all.min.css">
+</head>
+<body>
+  <h1 class="text-center p-5">Your TodoList</h1>
+  <div id="app" class="container">
+    <div class="row">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">待辦事項</span>
+        </div>
+        <input type="text" class="form-control" placeholder="請輸入代辦事項" v-model="newTodo" @keyup.enter="addTodo">
+        <div class="input-group-append">
+          <button class="btn btn-primary px-4" type="button" @click="addTodo">新增</button>
+        </div>
+      </div>
+      <div class="card text-center col-12 p-0 my-4">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link" :class="{ 'active': visibility === 'all' }" @click="visibility = 'all'" href="#">全部</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{ 'active': visibility === 'active' }" @click="visibility = 'active'" href="#">進行中</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" :class="{ 'active': visibility === 'complete' }" @click="visibility = 'complete'" href="#">已完成</a>
+              </li>
+            </ul>
+          </div>
+          <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item" v-for="(item, key) in filterTodos" @dblclick="editTodo(item)">
+              <div class="d-flex" v-if="item.id !== edit.id">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" :id="item.id" v-model="item.completed">
+                  <label class="form-check-label" :class="{ 'completed': item.completed }" :for="item.id">
+                    {{ item.content }}
+                  </label>
+                </div>
+                <button type="button" class="close ml-auto" aria-label="Close" @click="romoveTodo(item)">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <input type="text" class="form-control" v-if="item.id === edit.id" v-model="editContent" @keyup.esc="cancelEdit" @keyup.enter="doneEdit(item)">
+            </li>
+          </ul>
+          <div class="card-footer d-flex justify-content-between">
+            <span>未完成事項尚有 {{ todos.length }} 筆</span>
+            <a href="#" @click="clearAll">清除所有代辦事項</a>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="./src/js/all.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+@import '../../node_modules/bootstrap/scss/functions';
+@import 'helpers/variables';
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+html,body{
+  background-color: #aaa;
+}
+.completed{
+  text-decoration: line-through;
+}
